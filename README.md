@@ -37,8 +37,8 @@ spoon.Launcher -i <src-folder> -p nl.rug.search.patterngrime.spoon.processors.<M
 Number of public methods that are not part of the original pattern definition.
 ```
 // steps for calculation
-1. get list of public methods part of the pattern instace (from SSA)
-2. get list of public methods in the class (from spoon)
+1. get list of public methods part of the pattern instace (from pattern description)
+2. get list of public methods in the class (from Spoon)
 3. subtract set (1) from set (2)
 ```
 
@@ -48,8 +48,8 @@ Number of public methods that are not part of the original pattern definition.
 Number of attributes that are not part of the original pattern definition.
 ```
 // steps for calculation
-1. get list of attributes that are part of the pattern instace (from SSA)
-2. get list of class attributes (from spoon)
+1. get list of attributes that are part of the pattern instace (from pattern description)
+2. get list of class attributes (from Spoon)
 3. subtract set (1) from set (2)
 ```
 
@@ -59,8 +59,8 @@ Number of attributes that are not part of the original pattern definition.
 Pattern instance afferent coupling.
 ```
 // steps for calculation
-1. get list of classes of the pattern instance (from SSA)
-2. for each class in set (1), get classes in the system that depend on it (from spoon)
+1. get list of classes of the pattern instance (from pattern description)
+2. for each class in set (1), get classes in the system that depend on it (from Spoon)
 3. remove duplications in set (2)
 4. subtract set (1) from set (2)
 ```
@@ -71,7 +71,7 @@ Pattern instance afferent coupling.
 Pattern instance efferent coupling.
 ```
 // steps for calculation
-1. get list of classes of the pattern instance (from SSA)
+1. get list of classes of the pattern instance (from pattern description)
 2. for each class in set (1), get list of (class) dependencies
 3. remove duplications in set (2)
 4. subtract set (1) from set (2)
@@ -84,7 +84,7 @@ Pattern instance efferent coupling.
 Number of packages within the pattern instance.
 ```
 // steps for calculation
-1. get list of classes of the pattern instance (from SSA)
+1. get list of classes of the pattern instance (from pattern description)
 2. for each class in set (1), get package name
 3. remove duplications from set (2)
 ```
@@ -95,10 +95,10 @@ Number of packages within the pattern instance.
 Fan-in at the package level. 
 ```
 // steps for calculation
-1. get list of classes of the pattern instance (from SSA)
+1. get list of classes of the pattern instance (from pattern description)
 2. for each class in set (1), get package name
 3. remove duplications from set (2)
-4. for each package in set(3), get classes in the system that depend on it (from spoon)
+4. for each package in set(3), get classes in the system that depend on it (from Spoon)
 5. for each class in set (4), get package name
 6. remove duplications from set (5)
 ```
