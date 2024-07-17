@@ -4,6 +4,7 @@ import nl.rug.search.ssap.model.Instance;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import spoon.reflect.reference.CtTypeReference;
+import spoon.support.Level;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,13 +21,13 @@ public class MgCeProcessor extends PatternGrimeProcessor {
 
     void calculateMetric() {
         // Find pattern instances this class is part of
-        log.debug("In MgCe Processor");
+        getFactory().getEnvironment().report(this, Level.DEBUG, "In MgCe Processor");
         Stream<Instance> instances = patterns.getInstancesWithClass(element.getQualifiedName());
         instances.forEach(this::calculateMgCe);
     }
 
     private void calculateMgCe(Instance i){
-        log.debug("calculating mgce");
+        getFactory().getEnvironment().report(this, Level.DEBUG, "Calculating MgCe");
         if(i.getMgCe() != null)
             return;
 
@@ -38,7 +39,7 @@ public class MgCeProcessor extends PatternGrimeProcessor {
                 .forEach(c -> fanOut.addAll(dependencyMap.get(c)));
 
         long count = fanOut.stream().filter(p -> !instanceClasses.contains(p.getQualifiedName())).count();
-        log.debug("setting mgce");
+        getFactory().getEnvironment().report(this, Level.DEBUG, "Setting MgCe");
         i.setMgCe(count);
     }
 }

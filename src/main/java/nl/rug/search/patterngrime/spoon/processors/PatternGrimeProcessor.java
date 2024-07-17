@@ -31,7 +31,7 @@ public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
 
 
     public void process(CtType element) {
-        log.debug("Processing element: {}", element);
+        getFactory().getEnvironment().report(this, Level.INFO, "Processing element ");
         if(!CtClass.class.isInstance(element) && !CtInterface.class.isInstance(element))
             return;
 
