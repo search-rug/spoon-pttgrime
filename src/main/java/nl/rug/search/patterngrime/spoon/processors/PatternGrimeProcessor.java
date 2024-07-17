@@ -29,12 +29,10 @@ public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
     @Override
     public void init() {
         super.init();
-        getFactory().getEnvironment().report(this, Level.INFO, "Processor initiated");
     }
 
     @Override
     public void process(CtType element) {
-        getFactory().getEnvironment().report(this, Level.INFO, "Processing element ");
         if(!CtClass.class.isInstance(element) && !CtInterface.class.isInstance(element))
             return;
 

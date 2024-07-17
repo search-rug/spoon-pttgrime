@@ -84,9 +84,7 @@ public class CLI {
         spoon.getEnvironment().setLevel("INFO");
 
         spoon.addInputResource(srcDir.getAbsolutePath());
-        spoon.getEnvironment().report(null, Level.INFO, "Started");
         spoon.run();
-        spoon.getEnvironment().report(null, Level.INFO, "Finished");
 
         try {
             GoFUtil.savePatternInstances(output.getAbsolutePath());

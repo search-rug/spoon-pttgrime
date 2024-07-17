@@ -15,16 +15,13 @@ import java.util.stream.Stream;
  */
 public class MgCeProcessor extends PatternGrimeProcessor {
 
-
     void calculateMetric() {
         // Find pattern instances this class is part of
-        getFactory().getEnvironment().report(this, Level.DEBUG, "In MgCe Processor");
         Stream<Instance> instances = patterns.getInstancesWithClass(element.getQualifiedName());
         instances.forEach(this::calculateMgCe);
     }
 
     private void calculateMgCe(Instance i){
-        getFactory().getEnvironment().report(this, Level.DEBUG, "Calculating MgCe");
         if(i.getMgCe() != null)
             return;
 
@@ -36,7 +33,6 @@ public class MgCeProcessor extends PatternGrimeProcessor {
                 .forEach(c -> fanOut.addAll(dependencyMap.get(c)));
 
         long count = fanOut.stream().filter(p -> !instanceClasses.contains(p.getQualifiedName())).count();
-        getFactory().getEnvironment().report(this, Level.DEBUG, "Setting MgCe");
         i.setMgCe(count);
     }
 }
