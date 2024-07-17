@@ -3,8 +3,6 @@ package nl.rug.search.patterngrime.spoon.processors;
 import nl.rug.search.patterngrime.GoFUtil;
 import nl.rug.search.patterngrime.Util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import spoon.support.Level;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtClass;
@@ -23,13 +21,18 @@ import java.util.Set;
  */
 public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
 
-    private static final Logger log = LogManager.getLogger(PatternGrimeProcessor.class);
     static CtPackage rootPackage = null;
     static Map<CtType, Set<CtTypeReference>> dependencyMap = new HashMap<>();
     GoFUtil patterns = null;
     CtType element = null;
 
+    @Override
+    public void init() {
+        super.init();
+        getFactory().getEnvironment().report(this, Level.INFO, "Processor initiated");
+    }
 
+    @Override
     public void process(CtType element) {
         getFactory().getEnvironment().report(this, Level.INFO, "Processing element ");
         if(!CtClass.class.isInstance(element) && !CtInterface.class.isInstance(element))
@@ -54,7 +57,6 @@ public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
         // Process elements
         if (patterns.isPatternParticipantClass(element.getQualifiedName())) {
             // System.out.println(String.format("[%s] %s", this.getClass(), element.getQualifiedName()));
-            log.debug("Calculating metric for {}", element);
             calculateMetric();
         }
 

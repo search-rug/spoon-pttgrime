@@ -1,0 +1,194 @@
+/* @(#)ODGDrawingPanel.java
+
+Copyright (c) 2007 The authors and contributors of JHotDraw.
+You may not use, copy or modify this file, except in compliance with the
+accompanying license terms.
+ */
+package org.jhotdraw.samples.odg;
+/**
+ * ODGDrawingPanel.
+ */
+// End of variables declaration//GEN-END:variables
+public class ODGDrawingPanel extends javax.swing.JPanel {
+    private static final long serialVersionUID = 1L;
+
+    private org.jhotdraw.undo.UndoRedoManager undoManager;
+
+    private org.jhotdraw.draw.Drawing drawing;
+
+    private org.jhotdraw.draw.DrawingEditor editor;
+
+    /**
+     * Creates new instance.
+     */
+    public ODGDrawingPanel() {
+        org.jhotdraw.util.ResourceBundleUtil labels = org.jhotdraw.util.ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+        initComponents();
+        undoManager = new org.jhotdraw.undo.UndoRedoManager();
+        editor = new org.jhotdraw.editor.DefaultDrawingEditor();
+        editor.add(view);
+        addCreationButtonsTo(creationToolbar, editor);
+        org.jhotdraw.gui.action.ButtonFactory.addAttributesButtonsTo(attributesToolbar, editor);
+        org.jhotdraw.gui.JPopupButton pb = new org.jhotdraw.gui.JPopupButton();
+        pb.setItemFont(javax.swing.UIManager.getFont("MenuItem.font"));
+        labels.configureToolBarButton(pb, "actions");
+        pb.add(new org.jhotdraw.action.edit.DuplicateAction());
+        pb.addSeparator();
+        pb.add(new org.jhotdraw.draw.action.GroupAction(editor));
+        pb.add(new org.jhotdraw.draw.action.UngroupAction(editor));
+        pb.addSeparator();
+        pb.add(new org.jhotdraw.draw.action.BringToFrontAction(editor));
+        pb.add(new org.jhotdraw.draw.action.SendToBackAction(editor));
+        pb.addSeparator();
+        pb.add(new org.jhotdraw.action.edit.CutAction());
+        pb.add(new org.jhotdraw.action.edit.CopyAction());
+        pb.add(new org.jhotdraw.action.edit.PasteAction());
+        pb.add(new org.jhotdraw.action.edit.SelectAllAction());
+        pb.add(new org.jhotdraw.draw.action.SelectSameAction(editor));
+        pb.addSeparator();
+        pb.add(undoManager.getUndoAction());
+        pb.add(undoManager.getRedoAction());
+        // FIXME - We need a toggle grid action
+        // pb.addSeparator();
+        // pb.add(new ToggleGridAction(editor));
+        javax.swing.JMenu m = new javax.swing.JMenu(labels.getString("view.zoomFactor.text"));
+        javax.swing.JRadioButtonMenuItem rbmi;
+        javax.swing.ButtonGroup group = new javax.swing.ButtonGroup();
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 0.1, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 0.25, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 0.5, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 0.75, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 1.0, null)));
+        rbmi.setSelected(true);
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 1.25, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 1.5, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 2, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 3, null)));
+        group.add(rbmi);
+        m.add(rbmi = new javax.swing.JRadioButtonMenuItem(new org.jhotdraw.draw.action.ZoomAction(editor, 4, null)));
+        group.add(rbmi);
+        pb.add(m);
+        pb.setFocusable(false);
+        creationToolbar.addSeparator();
+        creationToolbar.add(pb);
+        org.jhotdraw.draw.DefaultDrawing drawing = new org.jhotdraw.draw.DefaultDrawing();
+        view.setDrawing(drawing);
+        drawing.addUndoableEditListener(undoManager);
+    }
+
+    public void setDrawing(org.jhotdraw.draw.Drawing d) {
+        undoManager.discardAllEdits();
+        view.getDrawing().removeUndoableEditListener(undoManager);
+        view.setDrawing(d);
+        d.addUndoableEditListener(undoManager);
+    }
+
+    public org.jhotdraw.draw.Drawing getDrawing() {
+        return view.getDrawing();
+    }
+
+    public org.jhotdraw.draw.DrawingView getView() {
+        return view;
+    }
+
+    public org.jhotdraw.draw.DrawingEditor getEditor() {
+        return editor;
+    }
+
+    public static java.util.Collection<javax.swing.Action> createSelectionActions(org.jhotdraw.draw.DrawingEditor editor) {
+        java.util.LinkedList<javax.swing.Action> a = new java.util.LinkedList<javax.swing.Action>();
+        a.add(new org.jhotdraw.action.edit.DuplicateAction());
+        a.add(null);// separator
+
+        a.add(new org.jhotdraw.draw.action.GroupAction(editor, new org.jhotdraw.samples.svg.figures.SVGGroupFigure()));
+        a.add(new org.jhotdraw.draw.action.UngroupAction(editor, new org.jhotdraw.samples.svg.figures.SVGGroupFigure()));
+        a.add(new org.jhotdraw.samples.svg.action.CombineAction(editor));
+        a.add(new org.jhotdraw.samples.svg.action.SplitAction(editor));
+        a.add(null);// separator
+
+        a.add(new org.jhotdraw.draw.action.BringToFrontAction(editor));
+        a.add(new org.jhotdraw.draw.action.SendToBackAction(editor));
+        return a;
+    }
+
+    private void addCreationButtonsTo(javax.swing.JToolBar tb, final org.jhotdraw.draw.DrawingEditor editor) {
+        // AttributeKeys for the entitie sets
+        java.util.HashMap<org.jhotdraw.draw.AttributeKey<?>, java.lang.Object> attributes;
+        org.jhotdraw.util.ResourceBundleUtil drawLabels = org.jhotdraw.util.ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+        org.jhotdraw.gui.action.ButtonFactory.addSelectionToolTo(tb, editor, org.jhotdraw.gui.action.ButtonFactory.createDrawingActions(editor), org.jhotdraw.samples.odg.ODGDrawingPanel.createSelectionActions(editor));
+        tb.addSeparator();
+        attributes = new java.util.HashMap<org.jhotdraw.draw.AttributeKey<?>, java.lang.Object>();
+        attributes.put(org.jhotdraw.draw.AttributeKeys.FILL_COLOR, java.awt.Color.white);
+        attributes.put(org.jhotdraw.draw.AttributeKeys.STROKE_COLOR, java.awt.Color.black);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.draw.tool.CreationTool(new org.jhotdraw.samples.svg.figures.SVGRectFigure(), attributes), "edit.createRectangle", drawLabels);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.draw.tool.CreationTool(new org.jhotdraw.samples.svg.figures.SVGEllipseFigure(), attributes), "edit.createEllipse", drawLabels);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.samples.odg.PathTool(new org.jhotdraw.samples.svg.figures.SVGPathFigure(), new org.jhotdraw.samples.svg.figures.SVGBezierFigure(true), attributes), "edit.createPolygon", drawLabels);
+        attributes = new java.util.HashMap<org.jhotdraw.draw.AttributeKey<?>, java.lang.Object>();
+        attributes.put(org.jhotdraw.draw.AttributeKeys.FILL_COLOR, null);
+        attributes.put(org.jhotdraw.draw.AttributeKeys.STROKE_COLOR, java.awt.Color.black);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.draw.tool.CreationTool(new org.jhotdraw.samples.svg.figures.SVGPathFigure(), attributes), "edit.createLine", drawLabels);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.samples.odg.PathTool(new org.jhotdraw.samples.svg.figures.SVGPathFigure(), new org.jhotdraw.samples.svg.figures.SVGBezierFigure(false), attributes), "edit.createScribble", drawLabels);
+        attributes = new java.util.HashMap<org.jhotdraw.draw.AttributeKey<?>, java.lang.Object>();
+        attributes.put(org.jhotdraw.draw.AttributeKeys.FILL_COLOR, java.awt.Color.black);
+        attributes.put(org.jhotdraw.draw.AttributeKeys.STROKE_COLOR, null);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, new org.jhotdraw.draw.tool.CreationTool(new org.jhotdraw.samples.svg.figures.SVGTextFigure(), attributes), "edit.createText", drawLabels);
+        org.jhotdraw.draw.tool.TextAreaCreationTool tat = new org.jhotdraw.draw.tool.TextAreaCreationTool(new org.jhotdraw.samples.svg.figures.SVGTextAreaFigure(), attributes);
+        tat.setRubberbandColor(java.awt.Color.BLACK);
+        org.jhotdraw.gui.action.ButtonFactory.addToolTo(tb, editor, tat, "edit.createTextArea", drawLabels);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT
+     * modify this code. The content of this method is always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+        toolButtonGroup = new javax.swing.ButtonGroup();
+        scrollPane = new javax.swing.JScrollPane();
+        view = new org.jhotdraw.draw.DefaultDrawingView();
+        jPanel1 = new javax.swing.JPanel();
+        creationToolbar = new javax.swing.JToolBar();
+        attributesToolbar = new javax.swing.JToolBar();
+        setLayout(new java.awt.BorderLayout());
+        scrollPane.setViewportView(view);
+        add(scrollPane, java.awt.BorderLayout.CENTER);
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+        creationToolbar.setFloatable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel1.add(creationToolbar, gridBagConstraints);
+        attributesToolbar.setFloatable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel1.add(attributesToolbar, gridBagConstraints);
+        add(jPanel1, java.awt.BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToolBar attributesToolbar;
+
+    private javax.swing.JToolBar creationToolbar;
+
+    private javax.swing.JPanel jPanel1;
+
+    private javax.swing.JScrollPane scrollPane;
+
+    private javax.swing.ButtonGroup toolButtonGroup;
+
+    private org.jhotdraw.draw.DefaultDrawingView view;
+}

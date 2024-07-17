@@ -7,6 +7,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.junit.Assert;
 import spoon.Launcher;
 import spoon.SpoonAPI;
+import spoon.support.Level;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,8 +81,12 @@ public class CLI {
         spoon.addProcessor(String.format("%s.OgCaProcessor", processorPackge));
         spoon.addProcessor(String.format("%s.OgNpProcessor", processorPackge));
 
+        spoon.getEnvironment().setLevel("INFO");
+
         spoon.addInputResource(srcDir.getAbsolutePath());
+        spoon.getEnvironment().report(null, Level.INFO, "Started");
         spoon.run();
+        spoon.getEnvironment().report(null, Level.INFO, "Finished");
 
         try {
             GoFUtil.savePatternInstances(output.getAbsolutePath());

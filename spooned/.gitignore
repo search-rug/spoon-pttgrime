@@ -1,0 +1,11 @@
+/jhotdraw7/build/
+/jhotdraw7/dist/
+/jhotdraw7/nbproject/private/
+target
+*.patch
+*.class
+nb-configuration.xml
+*.*~
+/jhotdraw-io/nbproject/
+/jhotdraw-core/nbproject/
+/jhotdraw-utils/nbproject/

@@ -185,6 +185,7 @@ public class GoFUtil {
                 .map(ClassRole.class::cast)
                 .map(ClassRole::getPackage)
                 .distinct()
+                .filter(s -> !s.isEmpty())
                 .collect(Collectors.toList());
     }
 

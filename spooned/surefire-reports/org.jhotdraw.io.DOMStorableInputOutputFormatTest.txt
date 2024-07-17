@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.jhotdraw.io.DOMStorableInputOutputFormatTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.190 s -- in org.jhotdraw.io.DOMStorableInputOutputFormatTest

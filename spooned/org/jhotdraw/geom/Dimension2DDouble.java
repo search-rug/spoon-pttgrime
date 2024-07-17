@@ -1,0 +1,163 @@
+/* @(#)Dimension2DDouble.java
+
+Copyright (c) 1996-2010 The authors and contributors of JHotDraw.
+You may not use, copy or modify this file, except in compliance with the
+accompanying license terms.
+ */
+package org.jhotdraw.geom;
+/**
+ * Dimension2DDouble.
+ */
+public class Dimension2DDouble extends java.awt.geom.Dimension2D implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The width dimension; negative values can be used.
+     *
+     * @serial  * @see #getSize
+     * @see #setSize
+     */
+    public double width;
+
+    /**
+     * The height dimension; negative values can be used.
+     *
+     * @serial  * @see #getSize
+     * @see #setSize
+     */
+    public double height;
+
+    /**
+     * Creates an instance of <code>Dimension2DDouble</code> with a width of zero and a height of
+     * zero.
+     */
+    public Dimension2DDouble() {
+        this(0, 0);
+    }
+
+    /**
+     * Creates an instance of <code>Dimension2DDouble</code> whose width and height are the same as
+     * for the specified dimension.
+     *
+     * @param d
+     * 		the specified dimension for the <code>width</code> and <code>height</code> values
+     */
+    public Dimension2DDouble(org.jhotdraw.geom.Dimension2DDouble d) {
+        this(d.width, d.height);
+    }
+
+    /**
+     * Constructs a <code>Dimension2DDouble</code> and initializes it to the specified width and
+     * specified height.
+     *
+     * @param width
+     * 		the specified width
+     * @param height
+     * 		the specified height
+     */
+    public Dimension2DDouble(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
+     * Returns the width of this dimension in double precision.
+     *
+     * @return the width of this dimension in double precision
+     */
+    @java.lang.Override
+    public double getWidth() {
+        return width;
+    }
+
+    /**
+     * Returns the height of this dimension in double precision.
+     *
+     * @return the height of this dimension in double precision
+     */
+    @java.lang.Override
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * Sets the size of this <code>Dimension2DDouble</code> object to the specified width and height
+     * in double precision. Note that if <code>width</code> or <code>height</code> are larger than
+     * <code>Integer.MAX_VALUE</code>, they will be reset to <code>Integer.MAX_VALUE</code>.
+     *
+     * @param width
+     * 		the new width for the <code>Dimension2DDouble</code> object
+     * @param height
+     * 		the new height for the <code>Dimension2DDouble</code> object
+     */
+    @java.lang.Override
+    public void setSize(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
+     * Gets the size of this <code>Dimension2DDouble</code> object. This method is included for
+     * completeness, to parallel the <code>getSize</code> method defined by <code>Component</code>.
+     *
+     * @return the size of this dimension, a new instance of <code>Dimension2DDouble</code> with the
+    same width and height
+     * @see Dimension2DDouble#setSize
+     * @see java.awt.Component#getSize
+     * @since JDK1.1
+     */
+    public org.jhotdraw.geom.Dimension2DDouble getSize() {
+        return new org.jhotdraw.geom.Dimension2DDouble(width, height);
+    }
+
+    /**
+     * Sets the size of this <code>Dimension2DDouble</code> object to the specified size. This method
+     * is included for completeness, to parallel the <code>setSize</code> method defined by <code>
+     * Component</code>.
+     *
+     * @param d
+     * 		the new size for this <code>Dimension2DDouble</code> object
+     * @see Dimension2DDouble#getSize
+     * @see java.awt.Component#setSize
+     * @since JDK1.1
+     */
+    public void setSize(org.jhotdraw.geom.Dimension2DDouble d) {
+        setSize(d.width, d.height);
+    }
+
+    /**
+     * Checks whether two dimension objects have equal values.
+     */
+    @java.lang.Override
+    public boolean equals(java.lang.Object obj) {
+        if (obj instanceof org.jhotdraw.geom.Dimension2DDouble) {
+            org.jhotdraw.geom.Dimension2DDouble d = ((org.jhotdraw.geom.Dimension2DDouble) (obj));
+            return (width == d.width) && (height == d.height);
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hash code for this <code>Dimension2DDouble</code>.
+     *
+     * @return a hash code for this <code>Dimension2DDouble</code>
+     */
+    @java.lang.Override
+    public int hashCode() {
+        float sum = ((float) (width + height));
+        return java.lang.Float.floatToIntBits(((sum * (sum + 1)) / 2) + ((float) (width)));
+    }
+
+    /**
+     * Returns a string representation of the values of this <code>Dimension2DDouble</code> object's
+     * <code>height</code> and <code>width</code> fields. This method is intended to be used only for
+     * debugging purposes, and the content and format of the returned string may vary between
+     * implementations. The returned string may be empty but may not be <code>null</code>.
+     *
+     * @return a string representation of this <code>Dimension2DDouble</code> object
+     */
+    @java.lang.Override
+    public java.lang.String toString() {
+        return ((((getClass().getName() + "[width=") + width) + ",height=") + height) + "]";
+    }
+}
