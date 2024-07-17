@@ -17,7 +17,17 @@ public class ClassRole extends RoleParser {
         return getRole().getElement();
     }
 
-    public String getPackage() { return getMatcher().group(2); }
+    public String getPackage() {
+        if (getMatcher().matches()) {
+            return getMatcher().group(2);
+        }
+        return "";
+    }
 
-    public String getClassSimpleName() { return getMatcher().group(4); }
+    public String getClassSimpleName() {
+        if (getMatcher().matches()) {
+            return getMatcher().group(4);
+        }
+        return "";
+    }
 }

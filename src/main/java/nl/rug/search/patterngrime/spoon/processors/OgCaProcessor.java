@@ -16,8 +16,11 @@ public class OgCaProcessor extends PatternGrimeProcessor {
 
     void calculateMetric() {
         // Find pattern instances this class is part of
-        Stream<Instance> instances = patterns.getInstancesWithClass(element.getQualifiedName());
-        instances.forEach(this::calculateOgCa);
+        List<Instance> instances = patterns.getInstancesWithClass(element.getQualifiedName())
+                .collect(Collectors.toList());
+        if (!instances.isEmpty()) {
+            instances.forEach(this::calculateOgCa);
+        }
     }
 
     private void calculateOgCa(Instance i) {

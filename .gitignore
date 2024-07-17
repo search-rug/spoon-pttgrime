@@ -113,4 +113,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Spoon
+spooned/
+
 # End of https://www.gitignore.io/api/linux,macos,windows,intellij+iml

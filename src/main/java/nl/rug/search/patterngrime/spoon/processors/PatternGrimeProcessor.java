@@ -2,7 +2,8 @@ package nl.rug.search.patterngrime.spoon.processors;
 
 import nl.rug.search.patterngrime.GoFUtil;
 import nl.rug.search.patterngrime.Util;
-import org.apache.log4j.Level;
+
+import spoon.support.Level;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtInterface;
@@ -25,9 +26,13 @@ public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
     GoFUtil patterns = null;
     CtType element = null;
 
+    @Override
+    public void init() {
+        super.init();
+    }
 
+    @Override
     public void process(CtType element) {
-
         if(!CtClass.class.isInstance(element) && !CtInterface.class.isInstance(element))
             return;
 
@@ -42,7 +47,7 @@ public abstract class PatternGrimeProcessor extends AbstractProcessor<CtType> {
         try {
             patterns = GoFUtil.getInstance();
         } catch (IOException e) {
-            getFactory().getEnvironment().report(this, Level.FATAL, "Cannot load Pattern Instances. Check stack trace for details");
+            getFactory().getEnvironment().report(this, Level.ERROR, "Cannot load Pattern Instances. Check stack trace for details");
             e.printStackTrace();
             return;
         }

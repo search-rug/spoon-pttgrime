@@ -18,6 +18,7 @@ public class XMLUtil {
     private static class SingletonHelper{
         private static final XStream INSTANCE = new XStream();
         static {
+            INSTANCE.allowTypesByWildcard(new String[]{"nl.rug.**"});
             INSTANCE.processAnnotations(System.class);
             INSTANCE.processAnnotations(Pattern.class);
             INSTANCE.processAnnotations(Instance.class);

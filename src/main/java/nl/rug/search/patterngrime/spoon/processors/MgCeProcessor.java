@@ -2,6 +2,7 @@ package nl.rug.search.patterngrime.spoon.processors;
 
 import nl.rug.search.ssap.model.Instance;
 import spoon.reflect.reference.CtTypeReference;
+import spoon.support.Level;
 
 import java.util.HashSet;
 import java.util.List;

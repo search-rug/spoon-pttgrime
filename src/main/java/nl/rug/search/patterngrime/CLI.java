@@ -7,6 +7,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.junit.Assert;
 import spoon.Launcher;
 import spoon.SpoonAPI;
+import spoon.support.Level;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +80,8 @@ public class CLI {
         spoon.addProcessor(String.format("%s.MgCeProcessor", processorPackge));
         spoon.addProcessor(String.format("%s.OgCaProcessor", processorPackge));
         spoon.addProcessor(String.format("%s.OgNpProcessor", processorPackge));
+
+        spoon.getEnvironment().setLevel("INFO");
 
         spoon.addInputResource(srcDir.getAbsolutePath());
         spoon.run();
